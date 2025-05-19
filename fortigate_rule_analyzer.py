@@ -265,7 +265,6 @@ def get_member_details(member: str, address_mappings: dict) -> str:
             (cidr, ip_cnt) = calculate_cidr_and_ip_count(ip, mask)
             return f"{member_details['subnet']},\nCIDR: {cidr},\n IP_CNT: {ip_cnt}"
         else:
-            print(f"Need to handle this condition in code: {member_details}")
             messagebox.showwarning(APP_NAME, f"There is an unhandeled condition in the member enrichment function. Please share this config file with pandhareamol96@gmail.com to fix this issue.\n Member Details: {member_details}")
 
     elif 'subnet' in member_details:
@@ -277,7 +276,6 @@ def get_member_details(member: str, address_mappings: dict) -> str:
     elif 'member' in member_details:
         return member_details['member'] if isinstance(member_details['member'], str) else "\n".join(member_details['member']) 
     else:
-        print(f"Need to handle this condition in code: {member_details}")
         messagebox.showwarning(APP_NAME, f"There is an unhandeled condition in the member enrichment function. Please share this config file with pandhareamol96@gmail.com to fix this issue.\n Member Details: {member_details}")
 
 
@@ -297,16 +295,13 @@ def enrich_helper(addr:str, address_groups:dict, address_mappings:dict, fw_addre
                     data = get_member_details(member, address_mappings)
                     list_data.append(data)
                 else:
-                    #print(f"Group member '{member}' not found in address mappings.")
                     messagebox.showwarning(APP_NAME, f"Member '{member}' not found in the config file. Please share this config file with pandhareamol96@gmail.com to check for possible improvements in data enrichment feature")
                     list_data.append(member)
-
-                    
+       
         elif members in address_mappings:
             data = get_member_details(members, address_mappings)
             list_data.append(data)
         else:
-            #print(f"Group member '{members}' not found in the address mappings.")
             messagebox.showwarning(APP_NAME, f"Member '{member}' not found in the config file. Please share this config file with pandhareamol96@gmail.com to check for possible improvements in data enrichment feature")
             list_data.append(member)
                
@@ -507,7 +502,6 @@ def analyze_and_recommend(enriched_rules: list) -> list:
                             3: 'High',
                             4: 'Critical'}
 
-    print(f"Enriched Rules: {enriched_rules}")
     for rule in enriched_rules:
         severity = None
         observations = ''
@@ -705,7 +699,6 @@ def get_bandwidth_file():
     # Populating the sheet Name
     b_sheet_names = workbook.sheetnames
     workbook.close()
-    print(f"Sheet Names: {b_sheet_names}")
     for sheet in b_sheet_names:
         b_sheet_listbox.insert(0, sheet)
 
@@ -722,7 +715,6 @@ def get_previous_report_file():
     # Populating the sheet Name
     sheet_names = workbook.sheetnames
     workbook.close()
-    print(f"Sheet Names: {sheet_names}")
     for sheet in sheet_names:
         sheet_listbox.insert(0, sheet)
 
@@ -731,7 +723,6 @@ def get_previous_report_file():
 def confirm_sheet_name_and_populate_columns():
     # Populating the rule ID and Client Remark columns
     workbook = load_workbook(app.previous_report)
-    print("Inside confirm sheet name and polulate columns")
     sheet = workbook[app.old_sheet_name]
 
     columns = sheet[1]
@@ -745,7 +736,6 @@ def confirm_sheet_name_and_populate_columns():
 def confirm_b_sheet_name_and_populate_columns():
     # Populating the rule ID and Client Remark columns
     b_workbook = load_workbook(app.bandwidth_report)
-    print("Inside confirm bandwidth sheet name and polulate columns")
     sheet = b_workbook[app.bandwidth_sheet_name]
 
     columns = sheet[1]
@@ -953,7 +943,6 @@ def process_data(config_file, enrich_, report_, previous_comments, bandwidth_det
             dict_previous_comments = create_dict_from_xlsx(app.previous_report, app.old_sheet_name, app.rule_id_for_old_comments, app.remarks_column)
 
         dict_bandwidth = None
-        print(f"Selected bandwidth Details: {bandwidth_details}")
         if bandwidth_details:
             dict_bandwidth = create_dict_from_xlsx(app.bandwidth_report,app.bandwidth_sheet_name,app.rule_id_for_bandwidth,app.bandwidth_column)
 
@@ -1092,8 +1081,6 @@ if __name__ == '__main__':
     ttk.Label(app,text='.xlsx').place(x=200, y=125)
     filename_confirm_button =  ttk.Button(app, text = "Confirm", state=tkc.DISABLED,  command=lambda: set_filename())
     filename_confirm_button.place(x=250, y=120)
-
-
 
     enrich_ = IntVar()
     report_ = IntVar()
