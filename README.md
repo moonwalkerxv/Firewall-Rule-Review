@@ -18,3 +18,6 @@
 Limitations:
 - Does not supports overlapping rule detections (Please review this manually).
 - Need manual review The observations and recommendations given by the tool if there are any exceptions.
+
+## GUI:
+![GUI](gui.jpg)
