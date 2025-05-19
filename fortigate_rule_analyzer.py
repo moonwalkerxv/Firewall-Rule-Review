@@ -259,11 +259,11 @@ def get_member_details(member: str, address_mappings: dict) -> str:
             return member_details['subnet']
         elif member_details['type'] == 'address':
             return member_details['resource']
-        #elif member_details['type'] == 'ipmask':
-        #   ip = member_details['subnet'].split(' ')[0].strip()
-        #   mask = member_details['subnet'].split(' ')[1].strip()
-        #   (cidr, ip_cnt) = calculate_cidr_and_ip_count(ip, mask)
-        #   return f"{member_details['subnet']},\nCIDR: {cidr},\n IP_CNT: {ip_cnt}"
+        elif member_details['type'] == 'ipmask':
+            ip = member_details['subnet'].split(' ')[0].strip()
+            mask = member_details['subnet'].split(' ')[1].strip()
+            (cidr, ip_cnt) = calculate_cidr_and_ip_count(ip, mask)
+            return f"{member_details['subnet']},\nCIDR: {cidr},\n IP_CNT: {ip_cnt}"
         else:
             print(f"Need to handle this condition in code: {member_details}")
             messagebox.showwarning(APP_NAME, f"There is an unhandeled condition in the member enrichment function. Please share this config file with pandhareamol96@gmail.com to fix this issue.\n Member Details: {member_details}")
